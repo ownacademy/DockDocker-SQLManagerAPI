@@ -19,7 +19,7 @@ public class DatabaseConnection {
 
     //  Database credentials
     private static final String USER = "root";
-    private  static final String PASS = "";
+    private  static final String PASS = "64Bxx8";
     //TO DO: Encrypt password.
 
     private Connection Connection = null;

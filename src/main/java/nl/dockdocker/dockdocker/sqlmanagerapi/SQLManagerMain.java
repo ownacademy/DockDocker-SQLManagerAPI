@@ -26,6 +26,9 @@ public class SQLManagerMain {
             System.out.println(e.getMessage());
         }
         
+        //Only for test.
+        get("/hello", (req, res) -> "Hello World");
+        
         get("/select/:query", (request, response) ->  {
             String query = clearQuery(request.params(":query"));
             ResultSet results = database.executeSelectQuery(query);
