@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import java.sql.*;
 import java.util.ArrayList;
 import static spark.Spark.get;
+import static spark.SparkBase.port;
 
 /**
  *
@@ -18,16 +19,13 @@ public class SQLManagerMain {
     private static DatabaseConnection database = null;
     
     public static void main(String[] args) {
-        
-        //  port(5678); <- Uncomment this if you want spark to listen on a port different than 4567
+
+        port(5000); //<- Uncomment this if you want spark to listen on a port different than 4567
         try {
             database = DatabaseConnection.getInstance();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
-        //Only for test.
-        get("/hello", (req, res) -> "Hello World");
         
         get("/select/:query", (request, response) ->  {
             String query = clearQuery(request.params(":query"));
