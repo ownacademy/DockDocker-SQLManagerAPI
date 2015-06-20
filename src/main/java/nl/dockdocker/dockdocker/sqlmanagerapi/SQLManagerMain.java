@@ -28,7 +28,7 @@ public class SQLManagerMain {
         }
         
         get("/select/:query", (request, response) ->  {
-            String query = clearQuery(request.params(":query"));
+            String query = clearQueryFromASCII(request.params(":query"));
             ResultSet results = database.executeSelectQuery(query);
             if(results != null) {
                 ArrayList<serverData> serverData = new ArrayList<>();
@@ -51,7 +51,7 @@ public class SQLManagerMain {
         
         
         get("/insert/:query", (request, response) ->  {
-                String query = clearQuery(request.params(":query"));
+                String query = clearQueryFromASCII(request.params(":query"));
                 if(database.executeInsertQuery(query) == true) {
                     response.status(200);
                     return "Successfully inserted";
@@ -62,7 +62,7 @@ public class SQLManagerMain {
         });
 
         get("/update/:query", (request, response) ->  {
-            String query = clearQuery(request.params(":query"));
+            String query = clearQueryFromASCII(request.params(":query"));
             if(database.executeUpdateQuery(query)) {
                 response.status(200);
                 return "Successfully updated";
@@ -73,7 +73,7 @@ public class SQLManagerMain {
         });
         
         get("/delete/:query", (request, response) ->  {
-            String query = clearQuery(request.params(":query"));
+            String query = clearQueryFromASCII(request.params(":query"));
             if(database.executeDeleteQuery(query)) {
                 response.status(200);
                 return "Successfully deleted";
@@ -85,11 +85,11 @@ public class SQLManagerMain {
         
     }
     
-    private static String clearQuery(String query) {
-        return query.replace("{", "").
+    private static String clearQueryFromASCII(String query) {
+        return query.
+                replace("%7Bcomma%7D", ", ").
+                replace("%7Bslash%7D", "/").
                 replace("%20", " ").
-                replace("/", "{slash}").
-                replace("}", "").
                 replace("%27", "'").
                 replace("%60", "`").
                 replace("%22", "\"");
