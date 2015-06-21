@@ -4,7 +4,7 @@ call's to this API
 
 SELECT
 ```
-localhost:5000/select/*SELECT QUERY*
+localhost:5000/select/SELECT * FROM <table> WHERE .....*
 ```
 -response ResultSet
 
