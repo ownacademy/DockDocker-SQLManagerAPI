@@ -1,20 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package nl.dockdocker.dockdocker.sqlmanagerapi.test;
-
-import nl.dockdocker.dockdocker.sqlmanagerapi.*;
-import static org.junit.Assert.*;
+import nl.dockdocker.dockdocker.sqlmanagerapi.SQLManagerMain;
 import org.junit.*;
-
+import static org.junit.Assert.*;
 
 /**
  *
  * @author ivan
  */
-public class JUnitTest {
+public class JUnitTests {
     
     @Test
     public void testQuery() {
@@ -29,6 +21,5 @@ public class JUnitTest {
       assertEquals("The result have to be: '\"'", "\"", SQLmain.clearQueryFromASCII("%22"));
       assertEquals("The result have to be: ' ' '", "'", SQLmain.clearQueryFromASCII("%27"));
       assertEquals("The result have to be: '`'", "`", SQLmain.clearQueryFromASCII("%60"));
-      
     }
 }
