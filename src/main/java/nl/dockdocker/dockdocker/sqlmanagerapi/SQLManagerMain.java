@@ -34,12 +34,14 @@ public class SQLManagerMain {
                 ArrayList<serverData> serverData = new ArrayList<>();
                 while(results.next()){
                    int id  = results.getInt("id");
+                   String user = results.getString("user");
+                   String password = results.getString("password");
                    String name = results.getString("server_name");
                    String ip = results.getString("server_ip");
                    String status = results.getString("docker_status");
 
                    System.out.println(name);
-                   serverData.add(new serverData(id, name, ip, status));
+                   serverData.add(new serverData(id, user, password, name, ip, status));
                 }
                 response.status(200);
                 return new Gson().toJson(serverData);
