@@ -87,7 +87,7 @@ public class SQLManagerMain {
         
     }
     
-    private static String clearQueryFromASCII(String query) {
+    public static String clearQueryFromASCII(String query) {
         return query.
                 replace("%7Bcomma%7D", ", ").
                 replace("%7Bslash%7D", "/").
