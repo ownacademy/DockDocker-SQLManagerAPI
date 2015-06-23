@@ -54,17 +54,7 @@ public class DatabaseConnection {
             return null;
         }
     }
-    
-    public boolean executeInsertQuery(String query){
-        try {
-            Statement.executeUpdate(query);
-            return true;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
-    }
-    
+
     public boolean executeUpdateQuery(String query){
         try {
             Statement.executeUpdate(query);
@@ -73,16 +63,5 @@ public class DatabaseConnection {
             System.out.println(e.getMessage());
             return false;
         }
-    }
-    
-    public boolean executeDeleteQuery(String query){
-        try {
-            Statement.executeUpdate(query);
-            return true;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
-    }
-    
+    } 
 }

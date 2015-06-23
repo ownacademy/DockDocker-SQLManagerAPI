@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import java.sql.*;
 import java.util.ArrayList;
 import static spark.Spark.get;
+import static spark.Spark.post;
 import static spark.SparkBase.port;
 
 /**
@@ -27,8 +28,8 @@ public class SQLManagerMain {
             System.out.println(e.getMessage());
         }
         
-        get("/select/:query", (request, response) ->  {
-            String query = clearQueryFromASCII(request.params(":query"));
+        post("/select/", (request, response) ->  {
+            String query = request.body();
             ResultSet results = database.executeSelectQuery(query);
             if(results != null) {
                 ArrayList<serverData> serverData = new ArrayList<>();
@@ -51,49 +52,16 @@ public class SQLManagerMain {
             }
         });
         
-        
-        get("/insert/:query", (request, response) ->  {
-                String query = clearQueryFromASCII(request.params(":query"));
-                if(database.executeInsertQuery(query) == true) {
+        post("/update/", (request, response) ->  {
+                String query = request.body();
+                if(database.executeUpdateQuery(query) == true) {
                     response.status(200);
-                    return "Successfully inserted";
+                    return "Successfully updated";
                 } else {
                     response.status(400);
-                    return "Insert failed";
+                    return "Update failed";
                 }
         });
-
-        get("/update/:query", (request, response) ->  {
-            String query = clearQueryFromASCII(request.params(":query"));
-            if(database.executeUpdateQuery(query)) {
-                response.status(200);
-                return "Successfully updated";
-            } else {
-                response.status(400);
-                return "Update failed!";
-            }
-        });
-        
-        get("/delete/:query", (request, response) ->  {
-            String query = clearQueryFromASCII(request.params(":query"));
-            if(database.executeDeleteQuery(query)) {
-                response.status(200);
-                return "Successfully deleted";
-            } else {
-                response.status(400);
-                return "Delete failed!" + query;
-            }
-        });
-        
     }
     
-    public static String clearQueryFromASCII(String query) {
-        return query.
-                replace("%7Bcomma%7D", ", ").
-                replace("%7Bslash%7D", "/").
-                replace("%20", " ").
-                replace("%27", "'").
-                replace("%60", "`").
-                replace("%22", "\"");
-    }
 }
