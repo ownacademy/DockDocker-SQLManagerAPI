@@ -7,7 +7,7 @@ package nl.dockdocker.dockdocker.sqlmanagerapi;
 
 /**
  *
- * @author ivan
+ * @author Ivan Ivanov
  */
 public class serverData {
     public int ID;

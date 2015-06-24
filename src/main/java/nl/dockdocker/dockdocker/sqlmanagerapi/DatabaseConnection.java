@@ -9,7 +9,7 @@ import java.sql.*;
 
 /**
  *
- * @author Ivan
+ * @author Ivan Ivanov
  */
 public class DatabaseConnection {
     private static DatabaseConnection INSTANCE = null;
@@ -37,6 +37,10 @@ public class DatabaseConnection {
         Statement = Connection.createStatement();
     }
     
+    /**
+     * Gets the current instance of the database connection.
+     * @return DatabaseConnection object.
+     */
     public static DatabaseConnection getInstance() throws Exception {
         if(INSTANCE == null) {
             INSTANCE = new DatabaseConnection();
@@ -46,6 +50,11 @@ public class DatabaseConnection {
         }
     }
     
+    /**
+     * Executes select SQL query.
+     * @param query SQL query that well be executed.
+     * @return ResultSet object.
+     */
     public ResultSet executeSelectQuery(String query){
         try {
             return Statement.executeQuery(query);
@@ -55,6 +64,11 @@ public class DatabaseConnection {
         }
     }
 
+    /**
+     * Executes update SQL query.
+     * @param query SQL query that well be executed.
+     * @return true if the operation is successful.
+     */
     public boolean executeUpdateQuery(String query){
         try {
             Statement.executeUpdate(query);

@@ -14,7 +14,7 @@ import static spark.SparkBase.port;
 
 /**
  *
- * @author ivan
+ * @author Ivan Ivanov
  */
 public class SQLManagerMain {
     private static DatabaseConnection database = null;
@@ -62,6 +62,28 @@ public class SQLManagerMain {
                     return "Update failed";
                 }
         });
+        
+        get("/update/:query", (request, response) ->  {
+            String query = clearQueryFromASCII(request.params(":query"));
+            if(database.executeUpdateQuery(query) == true) {
+                response.status(200);
+                return "Successfully inserted";
+
+            } else {
+                response.status(400);
+                return "Update failed";
+            }
+        });
+    }
+    
+     private static String clearQueryFromASCII(String query) {
+         return query.
+                replace("%7Bcomma%7D", ", ").
+                replace("%7Bslash%7D", "/").
+                replace("%20", " ").
+                replace("%27", "'").
+                replace("%60", "`").
+                replace("%22", "\"");
     }
     
 }
